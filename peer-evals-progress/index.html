@@ -30,6 +30,13 @@
   <!-- ROUNDS APPEND ABOVE THIS LINE, NEWEST FIRST -->
 
   <div class="round">
+    <div class="meta"><span class="chip win">WORKSPACE: FLIPPED TO A WIN</span><span class="chip win">RESULTS: 4 STRAIGHT WINS</span><span class="chip lose">2 SECURITY HOLES FOUND AND KILLED</span><span>Round 2</span></div>
+    <p><strong>The workspace screen flipped.</strong> After the density rebuild, a fresh blind judge picked ours over the reference on the exact ground round 1 named as our loss: "B opens straight into work... far more scannable, layered content per inch." The results screen won its fourth straight blind run - the judge wrote that ours "designs the data" while the reference "frames rows."</p>
+    <p><strong>The access sweep earned its keep:</strong> driving 34 sign-in and permission combinations live, it found two real holes - a student could open the instructor's course workspace, and the course API handed any student the full roster with emails. Both are dead, server-side, verified live with a probe. Deep links now return you where you were headed after sign-in, and an expired link finally says so.</p>
+    <p class="quiet">Wave 1 of the build orders is running: the four roster-integrity bugs the mutation lane caught, reminder smart-send, the anonymous-order shuffle, CSV hardening, and the question types rebuilt on the measured Qualtrics interaction anatomy.</p>
+  </div>
+
+  <div class="round">
     <div class="meta"><span class="chip win">PRIVACY FIX LIVE</span><span class="chip win">QUALITY: ALL MUTANTS KILLED</span><span class="chip work">ROUND 2 JUDGING</span></div>
     <p><strong>The big integration wave shipped.</strong> The visibility leak found by the parity judge is dead: one shared function now decides who sees every answer, absent settings default to anonymous, and 15 tests pin it. Students land on their results in one click, instructor comments render under essay answers, questions can be duplicated, and a course-wide results view exists. The instructor home became a session-aware dashboard: what needs you first, live counts, and the next dated moments across every course.</p>
     <p>The quality gauntlet finished with everything killed: 89 behavior scenarios with real values, all 662 example-value mutants and all 25 planted source faults caught by tests. It also found four real bugs in the roster and import paths, now queued as fixes with their own tests.</p>
