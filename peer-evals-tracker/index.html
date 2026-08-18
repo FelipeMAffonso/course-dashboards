@@ -14,7 +14,7 @@
   .stat b { font-size:20px; font-variant-numeric: tabular-nums; letter-spacing:-0.01em; }
   .stat span { color:#4E5967; font-size:12px; margin-left:5px; }
   .bar { flex-basis:100%; height:6px; border-radius:3px; background:#EEF0F3; overflow:hidden; margin-top:4px; }
-  .bar i { display:block; height:100%; width:83%; background:#1BA673; }
+  .bar i { display:block; height:100%; width:84%; background:#1BA673; }
   section { margin-top: 26px; }
   .area-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
   h2 { font-size: 16px; letter-spacing: -0.01em; margin: 0; }
@@ -47,9 +47,9 @@
   <h1>Prepara Peer Evals - the 100% build tracker</h1>
   <div class="sub">Updated 2026-08-18 - generated from manifest.json, never hand-edited. 76 items total.</div>
   <div class="stats">
-    <span class="stat"><b>83%</b><span>done</span></span>
-    <span class="stat"><b>63</b><span>done</span></span>
-    <span class="stat"><b>3</b><span>building now</span></span>
+    <span class="stat"><b>84%</b><span>done</span></span>
+    <span class="stat"><b>64</b><span>done</span></span>
+    <span class="stat"><b>2</b><span>building now</span></span>
     <span class="stat"><b>8</b><span>queued</span></span>
     <span class="stat"><b>2</b><span>waiting on Felipe</span></span>
     <div class="bar"><i></i></div>
@@ -414,7 +414,7 @@
     </div>
   </section>
 <section>
-    <div class="area-head"><h2>Courses, sections, CRNs</h2><span class="area-count">3 of 6 done</span></div>
+    <div class="area-head"><h2>Courses, sections, CRNs</h2><span class="area-count">4 of 6 done</span></div>
     <div class="row" data-copyable>
       <div class="row-head">
         <span class="row-title" contenteditable="false">Any LMS export imports cleanly</span>
@@ -458,10 +458,10 @@
 <div class="row" data-copyable>
       <div class="row-head">
         <span class="row-title" contenteditable="false">The Prepara door armed</span>
-        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
       </div>
       <div class="row-done">Platform-side sender wired, DOOR_SECRET real, a section transfers on the instructor's press</div>
-      <div class="row-ev">INCIDENT: the first lane deployed the platform against the deploy law (Felipe repairing with another worker; freeze now total); the completion lane rebuilds everything through the door BUILD-ONLY - transfer, email relay, sign-in handoff, panel states</div>
+      <div class="row-ev">COMPLETE, BUILT NOT DEPLOYED: transfer + sync semantics proven over local wire, email relay through the platform dispatcher, 5-min single-use sign-in handoff, all five panel states; the expiry bug found and fixed (same-UTC-day expiries never fired); platform half committed b8c929ab8; goes live only on Felipe's deploys</div>
     </div>
   </section>
 <section>
@@ -472,7 +472,7 @@
         <span class="chip" style="background:rgba(217,45,32,0.08);color:#B42318">Waiting on Felipe</span>
       </div>
       <div class="row-done">The Postmark server token pasted, EMAIL_MODE=postmark, a real email received</div>
-      <div class="row-ev">console mode until his paste</div>
+      <div class="row-ev">SOLVED WITHOUT THE TOKEN, pending deploys: EMAIL_MODE=door relays door-signed mail through the platform's own dispatcher (its production POSTMARK_TOKEN already works); real email starts when Felipe deploys both sides and flips the mode - no secret ever moves. His token paste remains the standalone alternative</div>
     </div>
 <div class="row" data-copyable>
       <div class="row-head">
