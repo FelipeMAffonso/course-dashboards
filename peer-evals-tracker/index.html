@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prepara Peer Evals - the 100% build tracker</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin:0; background:#FAFAFB; color:#1C1D1F; font:15px/1.55 Inter, system-ui, sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 36px 22px 120px; }
+  h1 { font-size: 24px; letter-spacing: -0.015em; margin: 0 0 4px; }
+  .sub { color:#4E5967; font-size: 13px; margin-bottom: 20px; }
+  .stats { display:flex; flex-wrap:wrap; gap:22px; align-items:baseline; background:#fff; border:1px solid #E4E7EB; border-radius:12px; padding:14px 18px; }
+  .stat b { font-size:20px; font-variant-numeric: tabular-nums; letter-spacing:-0.01em; }
+  .stat span { color:#4E5967; font-size:12px; margin-left:5px; }
+  .bar { flex-basis:100%; height:6px; border-radius:3px; background:#EEF0F3; overflow:hidden; margin-top:4px; }
+  .bar i { display:block; height:100%; width:29%; background:#1BA673; }
+  section { margin-top: 26px; }
+  .area-head { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px; }
+  h2 { font-size: 16px; letter-spacing: -0.01em; margin: 0; }
+  .area-count { color:#4E5967; font-size:12px; font-variant-numeric: tabular-nums; }
+  .row { background:#fff; border:1px solid #E4E7EB; border-radius:10px; padding:12px 16px; margin-bottom:8px; }
+  .row-head { display:flex; justify-content:space-between; gap:10px; align-items:baseline; }
+  .row-title { font-weight:600; font-size:14px; letter-spacing:-0.005em; }
+  .chip { flex-shrink:0; border-radius:5px; padding:2px 8px; font-weight:600; font-size:11px; white-space:nowrap; }
+  .row-done { color:#3a3a3a; font-size:13px; margin-top:3px; }
+  .row-ev { color:#6B7480; font-size:12px; margin-top:3px; }
+  /* annotation kit */
+  #kit { position:fixed; right:14px; top:14px; display:flex; gap:6px; z-index:50; }
+  #kit button { border:1px solid #E4E7EB; background:#fff; color:#1C1D1F; border-radius:8px; padding:6px 10px; font:600 12px Inter, system-ui, sans-serif; cursor:pointer; }
+  #kit button.on { background:#202124; color:#fff; }
+  #export { position:fixed; right:14px; bottom:14px; z-index:50; border:none; background:#266DF0; color:#fff; border-radius:8px; padding:9px 14px; font:600 13px Inter, system-ui, sans-serif; cursor:pointer; }
+  .pin { position:absolute; width:22px; height:22px; border-radius:50%; background:#266DF0; color:#fff; font:700 12px/22px Inter; text-align:center; transform:translate(-11px,-11px); cursor:pointer; z-index:40; }
+  .pin-note { position:absolute; transform:translate(14px,-10px); background:#fff; border:1px solid #E4E7EB; border-radius:8px; padding:6px 8px; font-size:12px; width:190px; z-index:41; }
+  #draw { position:absolute; inset:0; z-index:30; display:none; }
+  body.drawing #draw { display:block; }
+  [contenteditable="true"] { outline:1px dashed #266DF0; background:rgba(38,109,240,0.04); }
+</style>
+</head>
+<body>
+<div id="kit">
+  <button id="b-pin">Pin</button><button id="b-draw">Draw</button><button id="b-copy">Copy edit</button>
+</div>
+<button id="export">Copy my notes</button>
+<canvas id="draw"></canvas>
+<main>
+  <h1>Prepara Peer Evals - the 100% build tracker</h1>
+  <div class="sub">Updated 2026-08-18 - generated from manifest.json, never hand-edited. 62 items total.</div>
+  <div class="stats">
+    <span class="stat"><b>29%</b><span>done</span></span>
+    <span class="stat"><b>18</b><span>done</span></span>
+    <span class="stat"><b>11</b><span>building now</span></span>
+    <span class="stat"><b>29</b><span>queued</span></span>
+    <span class="stat"><b>4</b><span>waiting on Felipe</span></span>
+    <div class="bar"><i></i></div>
+  </div>
+  <section>
+    <div class="area-head"><h2>Shipped this campaign</h2><span class="area-count">15 of 15 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Privacy: one visibility function, one stored shape</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">All answer visibility decided by worker/visibility.ts, absent settings default to anonymous, 15 tests pin it</div>
+      <div class="row-ev">commit 27a8cda, deployed 44aa1cab, live probe</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Security: students cannot open the instructor workspace or roster</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Server-side 403 with a kind sentence on the course payload for student members</div>
+      <div class="row-ev">deployed 5e846b15, live probe returned the 403</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Students reach their results in one click</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Read your results on the student home and session summary; emailed links land directly on the results screen</div>
+      <div class="row-ev">parity wave, walked live</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Instructor comments render under essay answers</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">The comments thread loads and posts on every essay response</div>
+      <div class="row-ev">parity wave, dead id wire fixed, walked live</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Duplicate any question in the editor</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Copy arrives beside the original with every setting</div>
+      <div class="row-ev">parity wave, 3 live duplicates</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Course-wide results view</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">A Results pane on the course rail with factors and averages across sessions</div>
+      <div class="row-ev">parity wave, live with demo factors</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Not sure + rank ties wired; zero-sum knob removed</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Every editor knob does what it says or does not exist</div>
+      <div class="row-ev">parity wave, 12 tests</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Session-aware, course-aware instructor home</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Needs-you strip, live stat band, coming-up list, state chips per course</div>
+      <div class="row-ev">integration wave, blessed s3 runs judged it</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Sign-in page composed ground</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Header wordmark, display line, quiet vignette both themes, real footer</div>
+      <div class="row-ev">slice blessed after 3 blind wins</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Searchable Help with troubleshooting for both audiences</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Live search across sections, table of contents, importer/co-instructor/recycle/keyboard/privacy sections</div>
+      <div class="row-ev">integration wave</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Importer welcome-over moment</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Check pop, counts, what-happens-next, Meet your course</div>
+      <div class="row-ev">integration wave</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Session cards legible at phone width</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Cards stack below sm; no zero-width titles</div>
+      <div class="row-ev">browser judge finding, fixed same hour</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Gherkin + mutation quality gates</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">89 scenarios with real values; 662/662 example mutants and 25/25 source mutants killed</div>
+      <div class="row-ev">QUALITY-REPORT.md, vitest 67/67</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Deep links return you after sign-in; expired links say so</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">redirect_to stored from the front door; Login shows the expiry line</div>
+      <div class="row-ev">deployed 5e846b15</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The full TEAMMATES mine</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">19,401 commits + 7,388 issues read end to end, synthesized into 25 build orders</div>
+      <div class="row-ev">capture/repo-mine + planning/BUILD-ORDERS.md</div>
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>Building right now</h2><span class="area-count">1 of 10 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The four roster and session integrity bugs</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">Team-name case split, importer revival, email-as-team-name, unparseable dates - each fixed with a test that failed before</div>
+      <div class="row-ev">wave-1 worker lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Reminder smart-send</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">No nudge ever reaches a student who already answered</div>
+      <div class="row-ev">wave-1 worker lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Anonymous answers never in roster order</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">Seeded shuffle per recipient; a test proves order decodes nothing</div>
+      <div class="row-ev">wave-1 worker lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">CSV export survives hostile names</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">Commas, quotes, newlines, emoji; RFC-4180 quoting + UTF-8 BOM; test with a hostile fixture</div>
+      <div class="row-ev">wave-1 worker lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Results-ready emails proven to send once</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">The published pass sends a working link, never double-sends across the cron</div>
+      <div class="row-ev">wave-1 worker lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">All ten question types on the measured Qualtrics anatomy</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">44px touch floors, the choice-row and matrix recipes, slider geometry, rank cards, validation states; both themes; render-verified</div>
+      <div class="row-ev">wave-1 UI lane + qualtrics-recipes.css</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Deadline clarity everywhere</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">Explicit weekday-date-time on every deadline; the editor steers away from midnight; extensions show the student's own date</div>
+      <div class="row-ev">wave-1 UI lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Co-instructor landing arc</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">A quiet one-time welcome naming who added you and to what, dismissible, remembered</div>
+      <div class="row-ev">wave-1 UI lane + owner-flag contract</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">One honest saved state</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">Every change shows the breathing Saved; the page states everything is saved</div>
+      <div class="row-ev">wave-1 UI lane</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Prepara roster-machinery study</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">The platform's exact CSV algorithms extracted into numbered port orders, Canvas-ready shapes</div>
+      <div class="row-ev">ROSTER-MACHINERY-ORDER.md: column-priority selection, four-outcome delta with revival, preview-is-a-promise</div>
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>Onboarding and suggested setups</h2><span class="area-count">0 of 5 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Session editor first visit</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The template offer plus a two-beat orientation, dismissible, remembered</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Results first visit</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">One calm explanation of what the factor means, shown once</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Suggested evaluation calendar</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Course creation with a term proposes the two-round shape with editable dates</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Team formation survey</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Availability grid, skills, work style, topic preferences, confidential note, editable team preview</div>
+      <div class="row-ev">shape specified in INSTRUCTOR-GROUP-WORK-NEEDS.md</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Team charter step</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">A beautiful charter the team fills once, referenced in later rounds</div>
+      <div class="row-ev">wave 3</div>
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>Courses, sections, CRNs</h2><span class="area-count">0 of 6 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Any LMS export imports cleanly</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Canvas-aware email-column priority + named junk-row skips ported into the importer parser (roster ORDER 1)</div>
+      <div class="row-ev">ROSTER-MACHINERY-ORDER.md</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Canvas-ready roster columns</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">joined_via + crn columns on course_members, roster_imports.source open, so phase-2 sync needs no migration</div>
+      <div class="row-ev">ROSTER-MACHINERY-ORDER.md</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Section-aware interface</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Section filter on People; per-section results slicing; sections visible where they matter</div>
+      <div class="row-ev">data already stored per member</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">CRN on course settings</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The course knows its CRN so the door transfer and Canvas phase 2 drop in without migration</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Build the next round from the previous session</span>
+        <span class="chip" style="background:rgba(180,120,20,0.10);color:#8a5a00">Needs a ruling</span>
+      </div>
+      <div class="row-done">Ruled first against BUILD-ORDERS reasoning; if built, one action copies structure with fresh dates</div>
+      <div class="row-ev">Help overclaim caught and corrected 2026-08-18</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The Prepara door armed</span>
+        <span class="chip" style="background:rgba(217,45,32,0.08);color:#B42318">Waiting on Felipe</span>
+      </div>
+      <div class="row-done">Platform-side sender wired, DOOR_SECRET real, a section transfers on the instructor's press</div>
+      <div class="row-ev">contract built and disarmed; his gate</div>
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>Messages and email</h2><span class="area-count">0 of 5 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Real email delivery</span>
+        <span class="chip" style="background:rgba(217,45,32,0.08);color:#B42318">Waiting on Felipe</span>
+      </div>
+      <div class="row-done">The Postmark server token pasted, EMAIL_MODE=postmark, a real email received</div>
+      <div class="row-ev">console mode until his paste</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Personal note on the results email</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">An optional instructor note rides the publish email</div>
+      <div class="row-ev">years of TEAMMATES requests (#2988)</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Instructors can preview every email</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">See exactly what students receive before it goes</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Message one student</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">A nudge action on a People row that sends one plain email</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Bulk extensions</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Extend a set of students in one action</div>
+      <div class="row-ev">TEAMMATES unmet #12594</div>
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>Results depth</h2><span class="area-count">0 of 6 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The working-grid apparatus on results</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Sortable columns, team and band and flag filters, selection with export, footer counts - keeping every praised encoding</div>
+      <div class="row-ev">named by the s6 blind loss to HubSpot</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The validated CATME-style instrument option</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Behaviorally anchored scales as a selectable question set with provenance</div>
+      <div class="row-ev">wave 2, the category's strongest trust claim</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Accountability withhold</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">A toggle: students who never evaluated see their results only after completing</div>
+      <div class="row-ev">wave 2</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The full flag set + reliability score</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Clique, conflict, high and low performer flags beside the existing four</div>
+      <div class="row-ev">wave 2</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Grade adjustment + defensibility record</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The factor-to-grade view and a per-student record that survives a dispute</div>
+      <div class="row-ev">wave 2</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Substring search everywhere</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The palette and People search match any part of a name or email</div>
+      <div class="row-ev">TEAMMATES' most-commented open request (#13054)</div>
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>The beauty gauntlet</h2><span class="area-count">2 of 7 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Sign-in slice</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Blind wins against strong references</div>
+      <div class="row-ev">3 straight wins, final vs Notion's real login</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Workspace slice</span>
+        <span class="chip" style="background:rgba(27,166,115,0.10);color:#157A57">Done</span>
+      </div>
+      <div class="row-done">Blind wins against strong references</div>
+      <div class="row-ev">3 wins, final vs HubSpot's real home, verified frame</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Results slice re-run</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Re-judged after the grid machinery lands; blessed on a win</div>
+      <div class="row-ev">4 wins then 1 named loss</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Onboarding slice recorded and judged</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">First-run arc filmed and blind-judged vs a strong frame</div>
+      <div class="row-ev">records after wave-1 lands</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Editor slice recorded and judged</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The editor with the new question anatomy, blind-judged</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Student flow slice recorded and judged</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The answering experience end to end, blind-judged</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Publish slice recorded and judged</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The publish moment and what students then see, blind-judged</div>
+      
+    </div>
+  </section>
+<section>
+    <div class="area-head"><h2>Launch and reach</h2><span class="area-count">0 of 8 done</span></div>
+    <div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The capabilities landing page</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">A simple Mintlify-grade page at /product: every capability shown literally, product stills, no invented copy</div>
+      <div class="row-ev">Felipe order 2026-08-18</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Documentation of everything</span>
+        <span class="chip" style="background:rgba(38,109,240,0.10);color:#1D5AD0">Building now</span>
+      </div>
+      <div class="row-done">In-product Help (deep, searchable) + repo README/INTEGRATION current + the landing; nothing undocumented</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Port Prepara's smooth roster machinery</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The numbered orders from the study executed; preview-before-commit contract</div>
+      <div class="row-ev">study running</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Migration outreach sends</span>
+        <span class="chip" style="background:rgba(217,45,32,0.08);color:#B42318">Waiting on Felipe</span>
+      </div>
+      <div class="row-done">The GitHub post and the maintainer-listing ask, sent on his word</div>
+      <div class="row-ev">importer + SEO page already live</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">The final product name</span>
+        <span class="chip" style="background:rgba(217,45,32,0.08);color:#B42318">Waiting on Felipe</span>
+      </div>
+      <div class="row-done">His ruling; rename is cheap, redirects hold</div>
+      
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Canvas LTI + grade passback</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Prepara's LTI stack reused; rosters in, grades back</div>
+      <div class="row-ev">phase 2 by his board decision</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">Accessibility pass</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">Real WCAG AA against the field's documented failures</div>
+      <div class="row-ev">wave 3, before institutional sales</div>
+    </div>
+<div class="row" data-copyable>
+      <div class="row-head">
+        <span class="row-title" contenteditable="false">FERPA documentation</span>
+        <span class="chip" style="background:#F3F4F6;color:#4E5967">Queued</span>
+      </div>
+      <div class="row-done">The paperwork institutions ask for</div>
+      <div class="row-ev">wave 3</div>
+    </div>
+  </section>
+</main>
+<script>
+(function(){
+  var KEY = "tracker-notes:" + location.pathname.split("/").pop();
+  var state = JSON.parse(localStorage.getItem(KEY) || '{"pins":[],"edits":{},"strokes":0}');
+  var mode = null;
+  function setMode(m2){ mode = (mode===m2)?null:m2;
+    document.body.classList.toggle("drawing", mode==="draw");
+    ["pin","draw","copy"].forEach(function(k){ document.getElementById("b-"+k).classList.toggle("on", mode===k); });
+    document.querySelectorAll(".row-title,.row-done").forEach(function(el){ el.contentEditable = (mode==="copy") ? "true" : "false"; });
+  }
+  ["pin","draw","copy"].forEach(function(k){ document.getElementById("b-"+k).onclick = function(){ setMode(k); }; });
+  function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+  function renderPin(p, i){
+    var el = document.createElement("div"); el.className="pin"; el.textContent = i+1;
+    el.style.left = p.x+"px"; el.style.top = p.y+"px";
+    var note = document.createElement("div"); note.className="pin-note"; note.contentEditable="true"; note.textContent = p.note || "";
+    note.style.left = p.x+"px"; note.style.top = p.y+"px";
+    note.addEventListener("input", function(){ p.note = note.textContent; save(); });
+    document.body.appendChild(el); document.body.appendChild(note);
+  }
+  state.pins.forEach(renderPin);
+  document.addEventListener("click", function(e){
+    if (mode !== "pin") return;
+    if (e.target.closest("#kit,#export,.pin,.pin-note")) return;
+    var p = { x: e.pageX, y: e.pageY, note: "" };
+    state.pins.push(p); renderPin(p, state.pins.length-1); save();
+  });
+  var cv = document.getElementById("draw"), cx = cv.getContext("2d"), down=false;
+  function size(){ cv.width = document.documentElement.scrollWidth; cv.height = document.documentElement.scrollHeight;
+    cv.style.width = cv.width+"px"; cv.style.height = cv.height+"px";
+    cx.strokeStyle="#266DF0"; cx.lineWidth=2.5; cx.lineCap="round"; }
+  size(); window.addEventListener("resize", size);
+  cv.addEventListener("pointerdown", function(e){ if(mode!=="draw")return; down=true; cx.beginPath(); cx.moveTo(e.pageX,e.pageY); state.strokes++; save(); });
+  cv.addEventListener("pointermove", function(e){ if(down&&mode==="draw"){ cx.lineTo(e.pageX,e.pageY); cx.stroke(); } });
+  window.addEventListener("pointerup", function(){ down=false; });
+  document.querySelectorAll(".row-title,.row-done").forEach(function(el){
+    el.addEventListener("input", function(){
+      var id = el.closest(".row").querySelector(".row-title").textContent;
+      state.edits[id] = el.textContent; save();
+    });
+  });
+  document.getElementById("export").onclick = function(){
+    var out = [];
+    state.pins.forEach(function(p,i){ if(p.note) out.push("PIN "+(i+1)+": "+p.note); });
+    Object.keys(state.edits).forEach(function(k){ out.push("EDIT near '"+k+"': "+state.edits[k]); });
+    if (state.strokes) out.push("(" + state.strokes + " drawn strokes on the board)");
+    navigator.clipboard.writeText(out.join("\n") || "(no notes yet)");
+    this.textContent = "Copied"; var b=this; setTimeout(function(){ b.textContent="Copy my notes"; }, 1200);
+  };
+})();
+</script>
+</body>
+</html>
